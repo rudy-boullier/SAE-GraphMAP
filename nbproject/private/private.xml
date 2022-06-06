@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/FileSelectionDialog.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/GraphMap.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/graph/GraphStyles.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/RecentFilesListModel.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/Edge.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/graph/GraphVisualisationWindow.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/Path.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/DistanceDialog.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/graph/GraphParser.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/Node.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/CompareDialog.java</file>
+        </group>
+    </open-files>
+</project-private>
