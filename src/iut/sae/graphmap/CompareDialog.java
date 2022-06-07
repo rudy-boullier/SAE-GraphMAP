@@ -6,7 +6,6 @@ package iut.sae.graphmap;
 
 import iut.sae.graphmap.models.Edge;
 import iut.sae.graphmap.models.Node;
-import org.graphstream.graph.Graph;
 
 /**
  *
@@ -27,7 +26,6 @@ public class CompareDialog extends javax.swing.JDialog {
     /**
      * Creates new form CompareDialog
      * @param parent Parent of the dialog
-     * @param graph Graph
      * @param firstCity First city to compare
      * @param secondCity Second city to compare
      */
@@ -113,7 +111,6 @@ public class CompareDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void initStates() {
-        System.out.println(getCityIndex(firstCity, Node.NodeType.V) + " " + getCityIndex(secondCity, Node.NodeType.V));
         if (getCityIndex(firstCity, Node.NodeType.V) > getCityIndex(secondCity, Node.NodeType.V)) {
             openedCityLabel.setText(firstCity.getName() + " est plus ouverte que " + secondCity.getName());
         } else if (getCityIndex(firstCity, Node.NodeType.V) < getCityIndex(secondCity, Node.NodeType.V)) {
