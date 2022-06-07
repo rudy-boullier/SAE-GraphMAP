@@ -15,11 +15,6 @@ import org.graphstream.graph.Graph;
 public class CompareDialog extends javax.swing.JDialog {
     
     /**
-     * Represents the Graph
-     */
-    private final Graph graph;
-    
-    /**
      * Represents the first city to compare
      */
     private final Node firstCity;
@@ -36,9 +31,8 @@ public class CompareDialog extends javax.swing.JDialog {
      * @param firstCity First city to compare
      * @param secondCity Second city to compare
      */
-    public CompareDialog(java.awt.Frame parent, Graph graph, Node firstCity, Node secondCity) {
+    public CompareDialog(java.awt.Frame parent, Node firstCity, Node secondCity) {
         super(parent, true);
-        this.graph = graph;
         this.firstCity = firstCity;
         this.secondCity = secondCity;
         initComponents();
@@ -48,12 +42,11 @@ public class CompareDialog extends javax.swing.JDialog {
     /**
      * Shows the dialog
      * @param parent Parent of the dialog
-     * @param graph Graph
      * @param firstCity First city to compare
      * @param secondCity Second city to compare
      */
-    public static void showDialog(java.awt.Frame parent, Graph graph, Node firstCity, Node secondCity) {
-        CompareDialog window = new CompareDialog(parent, graph, firstCity, secondCity);
+    public static void showDialog(java.awt.Frame parent, Node firstCity, Node secondCity) {
+        CompareDialog window = new CompareDialog(parent, firstCity, secondCity);
         window.setTitle("Comparaison de " + firstCity.getName() + " et de " + secondCity.getName());
         window.setVisible(true);
     }
@@ -65,7 +58,7 @@ public class CompareDialog extends javax.swing.JDialog {
             if (firstDest.getType() == type) total++;
             for (Edge secondLevelEdge : firstDest.getEdges()) {
                 Node secondDest = Node.findNode(secondLevelEdge.getLeftNode()) == firstDest ? Node.findNode(secondLevelEdge.getRightNode()) : Node.findNode(secondLevelEdge.getLeftNode());
-                if (secondDest != firstCity && secondDest.getType() == type) total++;
+                if (secondDest != city && secondDest.getType() == type) total++;
             }
         }
         return total;
@@ -120,6 +113,7 @@ public class CompareDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void initStates() {
+        System.out.println(getCityIndex(firstCity, Node.NodeType.V) + " " + getCityIndex(secondCity, Node.NodeType.V));
         if (getCityIndex(firstCity, Node.NodeType.V) > getCityIndex(secondCity, Node.NodeType.V)) {
             openedCityLabel.setText(firstCity.getName() + " est plus ouverte que " + secondCity.getName());
         } else if (getCityIndex(firstCity, Node.NodeType.V) < getCityIndex(secondCity, Node.NodeType.V)) {

@@ -43,7 +43,7 @@ public class DistanceDialog extends javax.swing.JDialog {
     public static void showDialog(java.awt.Frame parent, Node from, List<Path> paths, int maxDistance) {
         List<Path> sortedAndFilteredPaths = new ArrayList<>();
         for (Path path : paths) {
-            if (path.getEdges().size() <= maxDistance) sortedAndFilteredPaths.add(path);
+            if (path.getEdges().size() <= maxDistance && path.getDistance() >= 0) sortedAndFilteredPaths.add(path);
         }
         sortedAndFilteredPaths.sort((Path a, Path b) -> {
             if (a.getEdges().size() == b.getEdges().size()) return 0;

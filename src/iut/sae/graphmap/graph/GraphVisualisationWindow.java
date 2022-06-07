@@ -49,7 +49,6 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
      * Creates new form GraphVisualisationWindow
      */
     public GraphVisualisationWindow() {
-        setTitle("GraphMap");
         initComponents();
     }
     
@@ -94,6 +93,7 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
         displayEdgesCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GraphMap");
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -392,7 +392,8 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void compareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compareButtonActionPerformed
-        if (firstCityComboBox.getSelectedIndex() >= 0 && secondCityComboBox.getSelectedIndex() >= 0) CompareDialog.showDialog(this, graph, Node.getRegisteredNodes().get(firstCityComboBox.getSelectedIndex()), Node.getRegisteredNodes().get(secondCityComboBox.getSelectedIndex()));
+        if (firstCityComboBox.getSelectedIndex() >= 0 && secondCityComboBox.getSelectedIndex() >= 0)
+            CompareDialog.showDialog(this, Node.getRegisteredNodes().get(firstCityComboBox.getSelectedIndex()), Node.getRegisteredNodes().get(secondCityComboBox.getSelectedIndex()));
     }//GEN-LAST:event_compareButtonActionPerformed
 
     private class CityComboBoxModel extends DefaultComboBoxModel {
