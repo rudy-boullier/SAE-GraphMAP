@@ -92,7 +92,7 @@ public class DistanceDialog extends javax.swing.JDialog {
         private final List<Path> paths;
         
         public DistanceTableModel(List<Path> paths) {
-            this.columnsNames = new String[]{"Destination", "Chemin", "Distance"};
+            this.columnsNames = new String[]{"Destination", "Chemin", "Distance", "Est à 2-distance"};
             this.paths = paths;
         }
 
@@ -122,6 +122,8 @@ public class DistanceDialog extends javax.swing.JDialog {
                     return path.toString();
                 case 2:
                     return path.getDistance();
+                case 3:
+                    return path.getFrom().isTwoDistanceAccessible(path.getTo()) ? "Oui" : "Non";
                 default:
                     return null;
             }

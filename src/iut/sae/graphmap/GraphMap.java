@@ -24,6 +24,7 @@ public class GraphMap {
         
         System.setProperty("org.graphstream.ui", "swing");
         System.setProperty("sun.java2d.opengl", "True");
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         new GraphVisualisationWindow().setVisible(true);
     }
     

@@ -76,6 +76,7 @@ public class FileSelectionDialog extends javax.swing.JDialog {
     /**
      * Shows the dialog
      * @param parent Parent of the dialog
+     * @param graphState Already opened graph
      * @return Chosen file
      */
     public static File showDialog(java.awt.Frame parent, boolean graphState) {

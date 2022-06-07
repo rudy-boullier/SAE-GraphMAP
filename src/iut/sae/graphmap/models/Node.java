@@ -69,6 +69,27 @@ public class Node {
         return edges;
     }
     
+    public boolean isTwoDistanceAccessible(Node to) {
+        List<Edge> fromEdges = getEdges();
+        List<Edge> toEdges = to.getEdges();
+        
+        for (Edge fromEdge : fromEdges) {
+            for (Edge toEdge : toEdges) {
+                Node leftFromNode = Node.findNode(fromEdge.getLeftNode());
+                Node rightFromNode = Node.findNode(fromEdge.getLeftNode());
+                Node leftToNode = Node.findNode(toEdge.getLeftNode());
+                Node rightToNode = Node.findNode(toEdge.getRightNode());
+                Node fromOtherNode = leftFromNode == this ? rightFromNode : leftFromNode;
+                Node toOtherNode = leftToNode == to ? rightToNode : leftToNode;
+                if (fromOtherNode == to) return true;
+                if (toOtherNode == this) return true;
+                if (fromOtherNode == toOtherNode) return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public NodeType getType() {
         return type;
     }

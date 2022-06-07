@@ -69,6 +69,7 @@ public class Edge {
     public org.graphstream.graph.Edge populateGraph(Graph g) {
         org.graphstream.graph.Edge edge = g.addEdge(toString(), leftNode, rightNode);
         edge.setAttribute("ui.class", type.toString());
+        edge.setAttribute("ui.label", length);
         edge.setAttribute("length", length);
         return edge;
     }

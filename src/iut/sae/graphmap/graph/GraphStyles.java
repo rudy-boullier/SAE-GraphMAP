@@ -46,4 +46,13 @@ public class GraphStyles {
         return "edge { visibility-mode: " + (b ? "normal" : "hidden") + "; }";
     }
     
+    /**
+     * Toggle distances visibility
+     * @param b Visibility
+     * @return Corresponding stylesheet
+     */
+    public static String toggleDistances(boolean b) {
+        return "edge { text-visibility-mode: " + (b ? "normal" : "hidden") + "; }";
+    }
+    
 }
