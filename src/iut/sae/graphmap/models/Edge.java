@@ -10,7 +10,7 @@ import org.graphstream.graph.Graph;
 
 /**
  * Represents an Edge
- * @author Jonathan MONTMAIN <jmontmain at gmail.com>
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class Edge {
     
@@ -115,7 +115,7 @@ public class Edge {
     }
     
     /**
-     * Edge Type
+     * Enumeration of Edge types
      */
     public enum EdgeType {
         N,
@@ -125,7 +125,7 @@ public class Edge {
     
     /**
      * Returns a String representation of the Edge
-     * @return 
+     * @return String representation of the edge
      */
     @Override
     public String toString() {

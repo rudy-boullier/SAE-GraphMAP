@@ -21,7 +21,7 @@ import org.graphstream.graph.Graph;
 
 /**
  * Represents the parser that will parse a file into a graph
- * @author Jonathan MONTMAIN <jmontmain at gmail.com>
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class GraphParser {
     

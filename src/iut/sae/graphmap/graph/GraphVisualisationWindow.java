@@ -3,6 +3,7 @@ package iut.sae.graphmap.graph;
 import iut.sae.graphmap.CompareDialog;
 import iut.sae.graphmap.DistanceDialog;
 import iut.sae.graphmap.FileSelectionDialog;
+import iut.sae.graphmap.ListDialog;
 import iut.sae.graphmap.models.Edge;
 import iut.sae.graphmap.models.Node;
 import iut.sae.graphmap.models.Path;
@@ -27,7 +28,7 @@ import org.graphstream.ui.view.util.InteractiveElement;
 
 /**
  * Represents the main window of the Program
- * @author Jonathan MONTMAIN <jmontmain at gmail.com>
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class GraphVisualisationWindow extends javax.swing.JFrame {
     
@@ -55,6 +56,7 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
     
     /**
      * Shows the window and open the FileSelectionDialog
+     * @param b Visibility
      */
     @Override
     public void setVisible(boolean b) {
@@ -97,6 +99,8 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
         displayDistancesCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
         displayEdgesCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        showListDialog = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         displayNodesMenu = new javax.swing.JMenu();
         displayCitiesCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
         displayLeisuresCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
@@ -323,6 +327,15 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
         displayMenu.add(displayEdgesCheckBoxMenuItem);
         displayMenu.add(jSeparator1);
 
+        showListDialog.setText("Voir l'ensemble des noeuds et liaisons...");
+        showListDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showListDialogActionPerformed(evt);
+            }
+        });
+        displayMenu.add(showListDialog);
+        displayMenu.add(jSeparator2);
+
         displayNodesMenu.setText("Afficher les noeuds par type");
 
         displayCitiesCheckBoxMenuItem.setSelected(true);
@@ -488,12 +501,13 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
             this.edgesInformationsLabel.setText(nationalRoads + " nationales, " + departementalRoads + " départementales, " + highways + " autoroutes");
             this.validate();
             this.repaint();
+            updateVisibility();
         }
     }
     
     /**
      * Handles click on "Open file"
-     * @param evt 
+     * @param evt Action event
      */
     private void openFileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileMenuItemActionPerformed
         openFileSelectionDialog();
@@ -501,7 +515,7 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
 
     /**
      * Handles click on "Exit"
-     * @param evt 
+     * @param evt Action event
      */
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         dispose();
@@ -509,7 +523,7 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
 
     /**
      * Handles click on "Visualize"
-     * @param evt 
+     * @param evt Action event
      */
     private void visualizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizeButtonActionPerformed
         List<Path> paths = new ArrayList<>();
@@ -522,7 +536,7 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
 
     /**
      * Handles click on "Display nodes titles"
-     * @param evt 
+     * @param evt Action event
      */
     private void displayNodesTitlesCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayNodesTitlesCheckBoxMenuItemActionPerformed
         graph.setAttribute("ui.stylesheet", GraphStyles.toggleNodesTitles(displayNodesTitlesCheckBoxMenuItem.isSelected()));
@@ -530,147 +544,182 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
 
     /**
      * Handles click on "Compare"
-     * @param evt 
+     * @param evt Action event
      */
     private void compareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compareButtonActionPerformed
         if (firstCityComboBox.getSelectedIndex() >= 0 && secondCityComboBox.getSelectedIndex() >= 0)
             CompareDialog.showDialog(this, Node.getRegisteredNodes().get(firstCityComboBox.getSelectedIndex()), Node.getRegisteredNodes().get(secondCityComboBox.getSelectedIndex()));
     }//GEN-LAST:event_compareButtonActionPerformed
 
+    /**
+     * Handles click on "Display cities"
+     * @param evt Action event
+     */
     private void displayCitiesCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayCitiesCheckBoxMenuItemActionPerformed
-        for (int i = 0; i < graph.getNodeCount(); i++) {
-            org.graphstream.graph.Node node = graph.getNode(i);
-            if (Node.findNode(node.toString()).getType() == Node.NodeType.V) {
-                if (displayCitiesCheckBoxMenuItem.isSelected()) {
-                    node.removeAttribute("ui.hide");
-                    for (int j = 0; j < graph.getEdgeCount(); j++) {
-                        org.graphstream.graph.Edge edge = graph.getEdge(j);
-                        if (edge.getNode0() == node || edge.getNode1() == node) {
-                            edge.removeAttribute("ui.hide");
-                        }
-                    }
-                }
-                else {
-                    node.setAttribute("ui.hide");
-                    for (int j = 0; j < graph.getEdgeCount(); j++) {
-                        org.graphstream.graph.Edge edge = graph.getEdge(j);
-                        if (edge.getNode0() == node || edge.getNode1() == node) {
-                            edge.setAttribute("ui.hide");
-                        }
-                    }
-                }
-            }
-        }
+        updateVisibility();
     }//GEN-LAST:event_displayCitiesCheckBoxMenuItemActionPerformed
 
+    /**
+     * Handles click on "Display leisures"
+     * @param evt Action event
+     */
     private void displayLeisuresCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayLeisuresCheckBoxMenuItemActionPerformed
-        for (int i = 0; i < graph.getNodeCount(); i++) {
-            org.graphstream.graph.Node node = graph.getNode(i);
-            if (Node.findNode(node.toString()).getType() == Node.NodeType.L) {
-                if (displayLeisuresCheckBoxMenuItem.isSelected()) {
-                    node.removeAttribute("ui.hide");
-                    for (int j = 0; j < graph.getEdgeCount(); j++) {
-                        org.graphstream.graph.Edge edge = graph.getEdge(j);
-                        if (edge.getNode0() == node || edge.getNode1() == node) {
-                            edge.removeAttribute("ui.hide");
-                        }
-                    }
-                }
-                else {
-                    node.setAttribute("ui.hide");
-                    for (int j = 0; j < graph.getEdgeCount(); j++) {
-                        org.graphstream.graph.Edge edge = graph.getEdge(j);
-                        if (edge.getNode0() == node || edge.getNode1() == node) {
-                            edge.setAttribute("ui.hide");
-                        }
-                    }
-                }
-            }
-        }
+        updateVisibility();
     }//GEN-LAST:event_displayLeisuresCheckBoxMenuItemActionPerformed
 
+    /**
+     * Handles click on "Display restaurants"
+     * @param evt Action event
+     */
     private void displayRestaurantsCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayRestaurantsCheckBoxMenuItemActionPerformed
-        for (int i = 0; i < graph.getNodeCount(); i++) {
-            org.graphstream.graph.Node node = graph.getNode(i);
-            if (Node.findNode(node.toString()).getType() == Node.NodeType.R) {
-                if (displayRestaurantsCheckBoxMenuItem.isSelected()) {
-                    node.removeAttribute("ui.hide");
-                    for (int j = 0; j < graph.getEdgeCount(); j++) {
-                        org.graphstream.graph.Edge edge = graph.getEdge(j);
-                        if (edge.getNode0() == node || edge.getNode1() == node) {
-                            edge.removeAttribute("ui.hide");
-                        }
-                    }
-                }
-                else {
-                    node.setAttribute("ui.hide");
-                    for (int j = 0; j < graph.getEdgeCount(); j++) {
-                        org.graphstream.graph.Edge edge = graph.getEdge(j);
-                        if (edge.getNode0() == node || edge.getNode1() == node) {
-                            edge.setAttribute("ui.hide");
-                        }
-                    }
-                }
-            }
-        }
+        updateVisibility();
     }//GEN-LAST:event_displayRestaurantsCheckBoxMenuItemActionPerformed
 
+    /**
+     * Handles click on "Display national roads"
+     * @param evt Action event
+     */
     private void displayNationalRoadsCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayNationalRoadsCheckBoxMenuItemActionPerformed
-        for (int i = 0; i < graph.getEdgeCount(); i++) {
-            org.graphstream.graph.Edge edge = graph.getEdge(i);
-            System.out.println(edge.toString());
-            if (edge.toString().startsWith(Edge.EdgeType.N.toString())) {
-                if (displayNationalRoadsCheckBoxMenuItem.isSelected()) edge.removeAttribute("ui.hide");
-                else edge.setAttribute("ui.hide");
-            }
-        }
+        updateVisibility();
     }//GEN-LAST:event_displayNationalRoadsCheckBoxMenuItemActionPerformed
 
+    /**
+     * Handles click on "Display departemental roads"
+     * @param evt Action event
+     */
     private void displayDepartementalRoadsCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayDepartementalRoadsCheckBoxMenuItemActionPerformed
-        for (int i = 0; i < graph.getEdgeCount(); i++) {
-            org.graphstream.graph.Edge edge = graph.getEdge(i);
-            if (edge.toString().startsWith(Edge.EdgeType.D.toString())) {
-                if (displayDepartementalRoadsCheckBoxMenuItem.isSelected()) edge.removeAttribute("ui.hide");
-                else edge.setAttribute("ui.hide");
-            }
-        }
+        updateVisibility();
     }//GEN-LAST:event_displayDepartementalRoadsCheckBoxMenuItemActionPerformed
 
+    /**
+     * Handles click on "Display highways"
+     * @param evt Action event
+     */
     private void displayHighwaysCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayHighwaysCheckBoxMenuItemActionPerformed
-        for (int i = 0; i < graph.getEdgeCount(); i++) {
-            org.graphstream.graph.Edge edge = graph.getEdge(i);
-            if (edge.toString().startsWith(Edge.EdgeType.A.toString())) {
-                if (displayHighwaysCheckBoxMenuItem.isSelected()) edge.removeAttribute("ui.hide");
-                else edge.setAttribute("ui.hide");
-            }
-        }
+        updateVisibility();
     }//GEN-LAST:event_displayHighwaysCheckBoxMenuItemActionPerformed
 
+    /**
+     * Handles click on "Display distances"
+     * @param evt Action event
+     */
     private void displayDistancesCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayDistancesCheckBoxMenuItemActionPerformed
         graph.setAttribute("ui.stylesheet", GraphStyles.toggleDistances(displayDistancesCheckBoxMenuItem.isSelected()));
     }//GEN-LAST:event_displayDistancesCheckBoxMenuItemActionPerformed
 
     /**
      * Handles click on "Display edges"
-     * @param evt 
+     * @param evt Action event
      */
     private void displayEdgesCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgesCheckBoxMenuItemActionPerformed
-        graph.setAttribute("ui.stylesheet", GraphStyles.toggleEdgesVisibility(displayEdgesCheckBoxMenuItem.isSelected()));
+        displayEdgesMenu.setEnabled(displayEdgesCheckBoxMenuItem.isSelected());
+        updateVisibility();
     }//GEN-LAST:event_displayEdgesCheckBoxMenuItemActionPerformed
 
+    private void showListDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showListDialogActionPerformed
+        ListDialog.showDialog(this);
+    }//GEN-LAST:event_showListDialogActionPerformed
+
+    /**
+     * Returns true if the node is shown, false otherwise
+     * @param node Node
+     * @return True if the node is shown, false otherwise
+     */
+    private boolean isNodeShown(org.graphstream.graph.Node node) {
+        boolean shown = true;
+        switch (node.toString().charAt(0)) {
+            case 'V':
+                if (!displayCitiesCheckBoxMenuItem.isSelected()) shown = false;
+                break;
+            case 'R':
+                if (!displayRestaurantsCheckBoxMenuItem.isSelected()) shown = false;
+                break;
+            case 'L':
+                if (!displayLeisuresCheckBoxMenuItem.isSelected()) shown = false;
+                break;
+            default:
+                break;
+        }
+        return shown;
+    }
+    
+    /**
+     * Returns true if the edge is shown, false otherwise
+     * @param edge Edge
+     * @return True if the edge is shown, false otherwise
+     */
+    private boolean isEdgeShown(org.graphstream.graph.Edge edge) {
+        boolean shown = true;
+        if (!isNodeShown(edge.getNode0()) || !isNodeShown(edge.getNode1()) || !displayEdgesCheckBoxMenuItem.isSelected()) {
+            shown = false;
+        } else switch (edge.toString().charAt(0)) {
+            case 'N':
+                if (!displayNationalRoadsCheckBoxMenuItem.isSelected()) shown = false;
+                break;
+            case 'D':
+                if (!displayDepartementalRoadsCheckBoxMenuItem.isSelected()) shown = false;
+                break;
+            case 'A':
+                if (!displayHighwaysCheckBoxMenuItem.isSelected()) shown = false;
+                break;
+            default:
+                break;
+        }
+        return shown;
+    }
+    
+    /**
+     * Updates visilibility
+     */
+    private void updateVisibility() {
+        for (int i = 0; i < graph.getNodeCount(); i++) {
+            org.graphstream.graph.Node node = graph.getNode(i);
+            if (isNodeShown(node)) {
+                node.removeAttribute("ui.hide");
+            } else {
+                node.setAttribute("ui.hide");
+            }
+        }
+        for (int i = 0; i < graph.getEdgeCount(); i++) {
+            org.graphstream.graph.Edge edge = graph.getEdge(i);
+            if (isEdgeShown(edge)) {
+                edge.removeAttribute("ui.hide");
+            } else {
+                edge.setAttribute("ui.hide");
+            }
+        }
+    }
+    
+    /**
+     * Represents the city combo List Model
+     */
     private class CityComboBoxModel extends DefaultComboBoxModel {
         
+        // List of all the nodes that are cities
         private final List<Node> nodes;
         
+        /**
+         * Instanciates a new model
+         * @param nodes List of all the nodes that are cities
+         */
         public CityComboBoxModel(List<Node> nodes) {
             this.nodes = nodes;
         }
         
+        /**
+         * Returns the number of nodes that are cities
+         * @return Number of nodes that are cities
+         */
         @Override
         public int getSize() {
             return nodes.size();
         }
         
+        /**
+         * Returns the name of the city at a given index
+         * @param index Index of the city
+         * @return Name of the city at the given index
+         */
         @Override
         public String getElementAt(int index) {
             return this.nodes.get(index).getName();
@@ -702,6 +751,7 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> firstCityComboBox;
     private javax.swing.JLabel firstCityLabel;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel maxDistanceLabel;
     private javax.swing.JSpinner maxDistanceSpinner;
     private javax.swing.JMenuBar menuBar;
@@ -712,6 +762,7 @@ public class GraphVisualisationWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> secondCityComboBox;
     private javax.swing.JLabel secondCityLabel;
     private javax.swing.JPopupMenu.Separator separator1;
+    private javax.swing.JMenuItem showListDialog;
     private javax.swing.JButton visualizeButton;
     // End of variables declaration//GEN-END:variables
 }

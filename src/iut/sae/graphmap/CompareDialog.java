@@ -8,8 +8,8 @@ import iut.sae.graphmap.models.Edge;
 import iut.sae.graphmap.models.Node;
 
 /**
- *
- * @author Jonathan MONTMAIN <jmontmain at gmail.com>
+ * Represents the dialog
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class CompareDialog extends javax.swing.JDialog {
     
@@ -30,7 +30,7 @@ public class CompareDialog extends javax.swing.JDialog {
      * @param secondCity Second city to compare
      */
     public CompareDialog(java.awt.Frame parent, Node firstCity, Node secondCity) {
-        super(parent, true);
+        super(parent, false);
         this.firstCity = firstCity;
         this.secondCity = secondCity;
         initComponents();
@@ -49,6 +49,12 @@ public class CompareDialog extends javax.swing.JDialog {
         window.setVisible(true);
     }
     
+    /**
+     * Returns the number of Nodes of given type at 2-distance of a given city
+     * @param city City
+     * @param type Type searched
+     * @return Number of Nodes of given type at 2-distance of a given city
+     */
     private int getCityIndex(Node city, Node.NodeType type) {
         int total = 0;
         for (Edge firstLevelEdge : city.getEdges()) {
@@ -110,6 +116,9 @@ public class CompareDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Initializes the labels with computed values
+     */
     private void initStates() {
         if (getCityIndex(firstCity, Node.NodeType.V) > getCityIndex(secondCity, Node.NodeType.V)) {
             openedCityLabel.setText(firstCity.getName() + " est plus ouverte que " + secondCity.getName());

@@ -13,7 +13,7 @@ import javax.swing.table.TableModel;
 
 /**
  * Represents the distance-table dialog
- * @author Jonathan MONTMAIN <jmontmain at gmail.com>
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class DistanceDialog extends javax.swing.JDialog {
     
@@ -28,7 +28,7 @@ public class DistanceDialog extends javax.swing.JDialog {
      * @param model Model of the distance-table
      */
     public DistanceDialog(java.awt.Frame parent, TableModel model) {
-        super(parent, true);
+        super(parent, false);
         this.model = model;
         initComponents();
     }
@@ -86,31 +86,60 @@ public class DistanceDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Represents the Model that handles a list of paths
+     */
     public static class DistanceTableModel extends AbstractTableModel {
         
+        // Names of the column
         private final String[] columnsNames;
+        
+        // List of given paths
         private final List<Path> paths;
         
+        /**
+         * Instanciates the model
+         * @param paths Paths to handle
+         */
         public DistanceTableModel(List<Path> paths) {
-            this.columnsNames = new String[]{"Destination", "Chemin", "Distance", "Est à 2-distance"};
+            this.columnsNames = new String[]{"Destination", "Chemin", "Longueur", "Est à 2-distance"};
             this.paths = paths;
         }
 
+        /**
+         * Returns the number of rows
+         * @return Number of rows
+         */
         @Override
         public int getRowCount() {
             return this.paths.size();
         }
 
+        /**
+         * Returns the number of columns
+         * @return Number of columns
+         */
         @Override
         public int getColumnCount() {
             return this.columnsNames.length;
         }
 
+        /**
+         * Returns the name of a given column
+         * @param column Column index
+         * @return Name of the given column
+         */
         @Override
         public String getColumnName(int column) {
             return this.columnsNames[column];
         }              
 
+        /**
+         * Returns the value at a given column and given row
+         * @param rowIndex Row index
+         * @param colIndex Column index
+         * @return Value at the given column and given row
+         */
         @Override
         public Object getValueAt(int rowIndex, int colIndex) {
             Path path = this.paths.get(rowIndex);

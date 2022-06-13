@@ -7,7 +7,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Program Entry Class
- * @author Jonathan MONTMAIN <jonathan.montmain at gmail.com>
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class GraphMap {
 

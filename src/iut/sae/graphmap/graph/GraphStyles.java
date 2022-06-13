@@ -6,7 +6,7 @@ package iut.sae.graphmap.graph;
 
 /**
  * Represents the stylesheets of a Graph
- * @author Jonathan MONTMAIN <jmontmain at gmail.com>
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class GraphStyles {
     
@@ -35,15 +35,6 @@ public class GraphStyles {
      */
     public static String toggleNodesTitles(boolean b) {
         return "node { text-visibility-mode: " + (b ? "normal" : "hidden") + "; }";
-    }
-    
-    /**
-     * Toggle edges visibility
-     * @param b Edges visibility
-     * @return Corresponding stylesheet
-     */
-    public static String toggleEdgesVisibility(boolean b) {
-        return "edge { visibility-mode: " + (b ? "normal" : "hidden") + "; }";
     }
     
     /**

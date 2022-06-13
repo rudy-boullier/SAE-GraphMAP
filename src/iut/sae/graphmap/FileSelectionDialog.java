@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Represents the file selection dialog
- * @author Jonathan MONTMAIN <jonathan.montmain at gmail.com>
+ * @author Jonathan MONTMAIN, Rudy BOULLIER
  */
 public class FileSelectionDialog extends javax.swing.JDialog {
     
@@ -248,7 +248,7 @@ public class FileSelectionDialog extends javax.swing.JDialog {
 
     /**
      * Handles "Open File" button
-     * @param evt 
+     * @param evt Action event
      */
     private void openFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileButtonActionPerformed
         if (selectedFile != null) {
@@ -279,7 +279,7 @@ public class FileSelectionDialog extends javax.swing.JDialog {
 
     /**
      * Handles "Cancel" button
-     * @param evt 
+     * @param evt Action event
      */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
