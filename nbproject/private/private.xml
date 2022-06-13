@@ -7,13 +7,14 @@
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/graph/GraphStyles.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/RecentFilesListModel.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/Edge.java</file>
-            <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/graph/GraphVisualisationWindow.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/DistanceDialog.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/test/iut/sae/graphmap/models/NodeTest.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/FileSelectionDialog.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/Path.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/ListDialog.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/test/iut/sae/graphmap/models/EdgeTest.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/graph/GraphParser.java</file>
+            <file>file:/home/jmn/NetBeansProjects/GraphMap/test/iut/sae/graphmap/models/PathTest.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/models/Node.java</file>
             <file>file:/home/jmn/NetBeansProjects/GraphMap/src/iut/sae/graphmap/CompareDialog.java</file>
         </group>

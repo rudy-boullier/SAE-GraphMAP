@@ -8,6 +8,7 @@ import iut.sae.graphmap.models.Edge;
 import iut.sae.graphmap.models.Node;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -57,6 +58,8 @@ public class ListDialog extends javax.swing.JDialog {
             }
         });
         getContentPane().add(typeComboBox, java.awt.BorderLayout.PAGE_START);
+
+        tableScrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         table.setModel(new ListTableModel());
         tableScrollPane.setViewportView(table);
